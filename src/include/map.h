@@ -1,0 +1,89 @@
+#ifndef SRC_INCLUDE_MAP_H_
+#define SRC_INCLUDE_MAP_H_
+
+#include "set.h"
+
+namespace myn {
+template <class Key, class T>
+class map : public set<std::pair<Key, T>> {
+ public:
+  // map Member type
+  using key_type = Key;
+  using mapped_type = T;
+  using value_type = std::pair<key_type, mapped_type>;
+  using iterator = typename set<value_type>::iterator;
+  using const_iterator = typename set<value_type>::const_iterator;
+
+  using set<value_type>::set;
+  // map Member functions
+  // map();
+  // map(std::initializer_list<value_type> const &list);
+  // map(const map &other);
+  // map(map &&other);
+  // ~map();
+  // map &operator=(map &&other);
+  // map &operator=(const map &other);
+
+  // Map Element access
+  mapped_type &at(const key_type &key) {
+    if (!contains(key)) {
+      throw std::out_of_range("key not found");
+    } else {
+      mapped_type data{};
+      return set<value_type>::find(std::make_pair(key, data))->second;
+    }
+  }  // access specified element with bounds checking
+
+  mapped_type &operator[](const key_type &key) {
+    mapped_type data{};
+    if (!contains(key)) {
+      insert(key, data);
+    }
+    return set<value_type>::find(std::make_pair(key, data))->second;
+  }  // access or insert specified element
+
+  // map Iterators
+  // iterator begin();
+  // iterator end();
+  // const_iterator cbegin() const;
+  // const_iterator cend() const;
+
+  // map Capacity
+  // bool empty();
+  // size_type size();
+  // size_type max_size();
+
+  // map Modifiers
+  // void clear();
+  std::pair<iterator, bool> insert(const value_type &value) {
+    return set<value_type>::base_insert(value);
+  }
+  std::pair<iterator, bool> insert(const key_type &key,
+                                   const mapped_type &obj) {
+    return set<value_type>::base_insert(std::make_pair(key, obj));
+  }
+  std::pair<iterator, bool> insert_or_assign(const Key &key,
+                                             const mapped_type &obj) {
+    return set<value_type>::base_insert(std::make_pair(key, obj), true);
+  }
+
+  // void erase(iterator pos);
+  // void swap(map &other);
+  // void merge(map &other);
+
+  // map Lookup
+  bool contains(const key_type &key) {
+    mapped_type data{};
+    return set<value_type>::contains(std::make_pair(key, data));
+  }
+
+ private:
+  bool comp_key_less(const value_type &first,
+                     const value_type &second) const override {
+    return (first.first < second.first) ? true : false;
+  }
+};
+
+};  // namespace myn
+
+#endif  // SRC_INCLUDE_MAP_H_
