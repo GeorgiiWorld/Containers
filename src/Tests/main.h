@@ -1,5 +1,5 @@
-#ifndef CPP2_CONTAINERS_1_SRC_TESTS_MAIN_H_
-#define CPP2_CONTAINERS_1_SRC_TESTS_MAIN_H_
+#ifndef SRC_TESTS_MAIN_H_
+#define SRC_TESTS_MAIN_H_
 
 #include <gtest/gtest.h>
 
@@ -7,4 +7,4 @@
 
 #include "../containers.h"
 
-#endif  // CPP2_CONTAINERS_1_SRC_SET_H_
+#endif  // SRC_SET_H_
