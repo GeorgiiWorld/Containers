@@ -15,6 +15,14 @@ class map : public set<std::pair<Key, T>> {
 
   using set<value_type>::set;
 
+  // map();
+  // map(std::initializer_list<value_type> const &list);
+  // map(const map &other);
+  // map(map &&other);
+  // ~map();
+  // map &operator=(map &&other);
+  // map &operator=(const map &other);
+
   mapped_type &at(const key_type &key) {
     if (!contains(key)) {
       throw std::out_of_range("key not found");
@@ -31,6 +39,16 @@ class map : public set<std::pair<Key, T>> {
     return set<value_type>::find(std::make_pair(key, data))->second;
   }
 
+  // iterator begin();
+  // iterator end();
+  // const_iterator cbegin() const;
+  // const_iterator cend() const;
+
+  // bool empty();
+  // size_type size();
+  // size_type max_size();
+
+  // void clear();
   std::pair<iterator, bool> insert(const value_type &value) {
     return set<value_type>::base_insert(value);
   }
@@ -42,6 +60,9 @@ class map : public set<std::pair<Key, T>> {
                                              const mapped_type &obj) {
     return set<value_type>::base_insert(std::make_pair(key, obj), true);
   }
+  // void erase(iterator pos);
+  // void swap(map &other);
+  // void merge(map &other);
 
   bool contains(const key_type &key) {
     mapped_type data{};
